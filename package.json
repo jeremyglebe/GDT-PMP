@@ -1,0 +1,13 @@
+﻿{
+	"id": "peer-mp",
+	"name": "peer-mp",
+	"version": "0.1.1",
+	"author": "Jeremy Glebe",
+	"url": "https://jeremyglebe.com",
+	"description": "A simple and modern multiplayer mod for GDT that *just works*.",
+	"main": "./peer-mp.js",
+	"image": "image.png",
+	"dependencies": {
+		"gdt-modAPI":"0.1.x"
+	}
+}
