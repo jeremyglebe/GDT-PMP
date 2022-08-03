@@ -8,17 +8,23 @@
         .tallWindow {
             background-color: burlywood;
         }
+
         .windowBorder {
             border: 3px solid orange;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="lib/peerjs.js"></script>
+    <script src="lib/peer-wrap.js"></script>
     <script src="ui/UIChatBox.js"></script>
+    <script src="ui/UIPeerButton.js"></script>
 </head>
 
 <body>
     <script>
         $("body").append(UIChatBox());
+        $("body").append(UIPeerButton());
+        connectToBroker();
     </script>
 </body>
 
