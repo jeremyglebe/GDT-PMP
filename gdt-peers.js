@@ -1,5 +1,10 @@
+const requirements = [
+    "lib/peerjs.js",
+    "ui/UIChatBox.js"
+]
+
 // Load PeerJS and then initialize the mod.
-GDT.loadJs(["peerjs.js"], initialize, null);
+GDT.loadJs(requirements, initialize, null);
 
 // Whether or not this client has connected to the brokering server.
 var isPeerJSConnected = false;
@@ -14,11 +19,11 @@ function initialize() {
 // Function to initialize peerjs multiplayer
 function connectToBroker() {
     // Connect to the PeerJS brokering server.
-    myConnection = new Peer({ key: 'peerjs', debug: 3 });
+    myConnection = new Peer(generateID(), { key: 'peerjs', debug: 3 });
     myConnection.on('open', (id) => {
         // We've connected to the server.
         isPeerJSConnected = true;
-        $("#_UIChatBoxMessages").append(`<p>Connected to brokering server as ${id}</p>`);
+        $("#UIChatBoxMessages").append(`<p>Connected to brokering server as ${id}</p>`);
         // Callback for when a new peer connects to this client.
         myConnection.on('connection', onPeerConnected);
     });
@@ -37,47 +42,26 @@ function addPeer() {
 
 // Create all necessary UI components for the mod.
 function createUI() {
-    $('#gameUIContainer').append(_UIButtonAddPeer());
-    $('#gameUIContainer').append(_UIChatBox());
+    $('#gameUIContainer').append(UIButtonAddPeer());
+    $('#gameUIContainer').append(UIChatBox());
 }
 
-function _UIButtonAddPeer() {
+function UIButtonAddPeer() {
     return `
     <style>
-        #_UIButtonAddPeer {
+        #UIButtonAddPeer {
             position: absolute;
             top: 0px;
             left: 0px;
         }
     </style>
-    <button id="_UIButtonAddPeer">Add Peer</button>
+    <button id="UIButtonAddPeer">Add Peer</button>
     `
 }
 
-function _UIChatBox() {
-    return `
-    <style>
-        #_UIChatBox {
-            position: absolute;
-            bottom: 50px;
-            left: 0px;
-            height: 35%;
-            width: 15%;
-            overflow: hidden;
-            text-align: center;
-        }
-        #_UIChatBoxMessages {
-            width: 95%;
-            height: 90%;
-            overflow-y: scroll;
-        }
-        #_UIChatBoxInput {
-            width: 95%;
-        }
-    </style>
-    <div id="_UIChatBox" class="tallWindow windowBorder">
-        <div id="_UIChatBoxMessages"></div>
-        <input type="text" id="_UIChatBoxInput" />
-    </div>
-    `
+function generateID() {
+    const length = 6;
+    const prefix = "gdtmp-";
+    const numeric = parseInt(Math.ceil(Math.random() * Date.now()).toPrecision(length).toString().replace(".", ""));
+    return prefix + numeric;
 }
