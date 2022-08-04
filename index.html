@@ -13,17 +13,16 @@
             border: 3px solid orange;
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="lib/peerjs.js"></script>
-    <script src="lib/peer-wrap.js"></script>
-    <script src="ui/UIChatBox.js"></script>
-    <script src="ui/UIPeerButton.js"></script>
+    <script src="scripts/peer-wrap.js"></script>
+    <script src="scripts/html-loader.js"></script>
 </head>
 
 <body>
     <script>
-        $("body").append(UIChatBox());
-        $("body").append(UIPeerButton());
+        const addEl = (el) => document.body.appendChild(el);
+        loadComponent("UIChatBox", `./components/UIChatBox`).then(addEl);
+        loadComponent("UIPeerButton", `./components/UIPeerButton`).then(addEl);
         connectToBroker();
     </script>
 </body>

@@ -19,7 +19,8 @@ function connectToBroker() {
     peerSelf.on('open', (id) => {
         // We've connected to the server.
         isPeerJSConnected = true;
-        $("#UIChatBoxMessages").append(`<p>Connected to brokering server as ${id}</p>`);
+        const chatBox = document.querySelector("#UIChatBoxMessages");
+        chatBox.innerHTML += (`<p>Connected to brokering server as ${id}</p>`);
         // Callback for when a new peer connects to this client.
         peerSelf.on('connection', onPeerConnected);
     });
